@@ -2,12 +2,14 @@ import os
 
 from flask import send_file
 
+from web.aop.log_aop import timeit
 from web.stock import stock
 from web.stock.k.k_photo import KPhoto
 from config import Config
 
 
 @stock.route('hello/<secucode>/<days>', methods=['GET', ])
+@timeit("K线图生成")
 def get_stock(secucode, days):
     path = Config.get_conf().get('photo', 'path')
     if secucode == '':
